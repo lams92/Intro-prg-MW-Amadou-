@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Snake : MonoBehaviour
 {
     // Start is called before the first frame update
     Vector3 dir = Vector3.right;
+
+    List<Transform> tail = new List<Transform>();
+    bool ate = false;
+    public GameObject tailPrefab;
     
 
     void Start()
@@ -20,7 +25,22 @@ public class Snake : MonoBehaviour
     }
     void MoveSnake()
     {
+        Vector3 gap = transform.position;
         transform.Translate(dir);
+        if (ate)
+        {
+            Debug.Log("ate =" + ate);
+            GameObject tailSec = (GameObject)Instantiate(tailPrefab, gap, Quaternion.identity);
+            tail.Insert(0,tailSec.transform);
+
+            ate = false;
+        }
+        if (tail.Count > 0)
+        {
+            tail.Last().position = gap;
+            tail.Insert(0, tail.Last());
+            tail.RemoveAt(tail.Count - 1);
+        }
     }
     private void ChangeDirection()
     {
@@ -48,6 +68,7 @@ public class Snake : MonoBehaviour
         {
             //Debug.Log("food eaten");
             Destroy(collision.gameObject);
+            ate = true;
             
         }
         if (collision.gameObject.tag == "Walls")
