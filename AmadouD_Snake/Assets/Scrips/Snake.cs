@@ -11,6 +11,8 @@ public class Snake : MonoBehaviour
     List<Transform> tail = new List<Transform>();
     bool ate = false;
     public GameObject tailPrefab;
+    public GameManager myManager;
+    bool death = false;
     
 
     void Start()
@@ -22,6 +24,10 @@ public class Snake : MonoBehaviour
     void Update()
     {
         ChangeDirection();
+        if (death = true)
+        {
+            
+        }
     }
     void MoveSnake()
     {
@@ -69,10 +75,13 @@ public class Snake : MonoBehaviour
             //Debug.Log("food eaten");
             Destroy(collision.gameObject);
             ate = true;
+            myManager.FoodEaten();
+            
             
         }
         if (collision.gameObject.tag == "Walls")
         {
+            death= true;
             
         }
 
