@@ -22,12 +22,14 @@ public class SceneChanger : MonoBehaviour
        if (sceneNumber == 2)
         {
             StartSceneControls();
-        }else if (sceneNumber == 1)
+        }
+        else if (sceneNumber == 1)
         {
-            MainSceneControls
-        }else if (sceneNumber== 0)
+            MainSceneControls();
+        }
+        else if (sceneNumber== 0)
         {
-            EndSceneControls
+            EndSceneControls();
         }
 
        
@@ -42,16 +44,20 @@ public class SceneChanger : MonoBehaviour
     }
     public void MainSceneControls()
     {
-      if (Input.GetKeyDown(KeyCode.Left))
+      if (Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadScene("EndScene");
         }
     }
     public void EndSceneControls()
     {
-        if (Input.GetKeyDown(KeyCode.Right))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene("StartScene")
+            SceneManager.LoadScene("StartScene");
         }
     }
-}
+    public void MoveToScene(int sceneID)
+    {
+        SceneManager.LoadScene(SceneID);
+    }
+} 
